@@ -2,22 +2,7 @@ import subprocess
 import config
 import os
 import re
-
-def install_packages(pkg):
-    command = ["sudo", "apt", "install", "-y"]
-    command.extend(pkg)
-    return command
-
-def install_requirements():
-    command = ["pip", "install", "-r", "requirements.txt"]
-    return command
-
-subprocess.call(install_requirements())
 import sh
-
-def packages():
-    return config.packages
-
 
 def vscode_install():
     sh.sudo.snap("install", "--classic", "code")
@@ -51,16 +36,16 @@ def ssh_key_generate():
     except:
         print("[debug]: Generating new ssh keys.")
         sh.ssh_keygen("-t", "ed25519", "-f", config.home_dir, "-q", "-N", "")
+    sh.kill(['SSH_AGENT_PID'])
 
+#if this kill statement doesn't work, try modifying it. It doesn't like WSL
 
-def install_requirements():
-    command = ["pip", "install", "-r", "requirements.txt"]
-    return command
+def main():
+    ssh_key_generate()
+    git_config()
+    vscode_install()
 
-subprocess.call(install_packages(packages()))
-ssh_key_generate()
-git_config()
-vscode_install()
+main()
 
 print("All done! :)")
 input("press enter to continue.")

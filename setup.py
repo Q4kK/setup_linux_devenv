@@ -29,14 +29,26 @@ def start_agent():
 
 def ssh_key_generate():
     start_agent()
+<<<<<<< HEAD
     sh.ssh_add()
+=======
+    try:
+        sh.ssh_add()
+    except:
+        pass
+>>>>>>> a6acea4 (Fix: fixed a bug where the ssh keys were not generating properly.)
     try:
         sh.ssh_add("-L")
         print("[debug]: Already generated ssh keys, skipping.")
     except:
         print("[debug]: Generating new ssh keys.")
+<<<<<<< HEAD
         sh.ssh_keygen("-t", "ed25519", "-f", config.home_dir, "-q", "-N", "")
     sh.kill(['SSH_AGENT_PID'])
+=======
+        sh.ssh_keygen("-t", "ed25519", "-f", config.home_dir + "/.ssh/id_ed25519", "-q", "-N", "")
+    sh.kill(os.environ['SSH_AGENT_PID'])
+>>>>>>> a6acea4 (Fix: fixed a bug where the ssh keys were not generating properly.)
 
 #if this kill statement doesn't work, try modifying it. It doesn't like WSL
 

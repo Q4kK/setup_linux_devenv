@@ -1,7 +1,7 @@
 import os
 
-git_user = "godot"
-git_email = "125313163+Q4kK@users.noreply.github.com"
+git_user = "USER_NAME"
+git_email = "USER_EMAIL"
 home_dir = os.path.expanduser('~')
 
 packages = ["git", "ansible", "curl", "snap", "openssh-server", "python3-pip"]
